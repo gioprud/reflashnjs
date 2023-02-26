@@ -50,6 +50,9 @@ import Link from 'next/link';
             <Link href={"/account/accountforgot"} onClick={handleForgotPassword}>
               forgot password?
             </Link>
+            <Link href={"/mainmenu"} onClick={handleForgotPassword}>
+              skip login test
+            </Link>
           </Group>
           <Button onClick={handleSignIn} fullWidth mt="xl">
             Sign in
