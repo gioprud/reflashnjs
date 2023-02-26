@@ -53,7 +53,7 @@ import Link from 'next/link';
           <Group position="apart" mt="lg" className={classes.controls}>
             <Anchor color="dimmed" size="sm" className={classes.control}>
               <Center inline>
-                <Link href={"/"} ml={5}>Back to login page</Link>
+                <Link href={"/"} >Back to login page</Link>
               </Center>
             </Anchor>
             <Button className={classes.control}>Reset password</Button>

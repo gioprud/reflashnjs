@@ -35,7 +35,7 @@ import Link from 'next/link';
           <TextInput label="First Name" placeholder="first name" required />
           <TextInput label="Last Name" placeholder="last name" required />
           <TextInput label="Email" placeholder="email" required />
-          <Link href={"/"} ml={5}>Back to login page</Link>
+          <Link href={"/"} >Back to login page</Link>
           <Button onClick={createNewAccount}>Create Account</Button>
         </Paper>
         </Container>
