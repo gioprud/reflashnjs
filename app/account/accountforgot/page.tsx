@@ -1,4 +1,4 @@
-"use strict"
+"use client"
 
 import {
     createStyles,
@@ -13,6 +13,7 @@ import {
     Center,
     Box,
   } from '@mantine/core';
+import Link from 'next/link';
   
   const useStyles = createStyles((theme) => ({
     title: {
@@ -52,8 +53,7 @@ import {
           <Group position="apart" mt="lg" className={classes.controls}>
             <Anchor color="dimmed" size="sm" className={classes.control}>
               <Center inline>
-                {/* <IconArrowLeft size={12} stroke={1.5} /> */}
-                <Box ml={5}>Back to login page</Box>
+                <Link href={"/"} ml={5}>Back to login page</Link>
               </Center>
             </Anchor>
             <Button className={classes.control}>Reset password</Button>
