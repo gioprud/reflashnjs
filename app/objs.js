@@ -1,9 +1,9 @@
 const User = {
-    email: '',
     username: '',
     password: ' ',
     fname: '',
     lname: '',
+    email: '',
     userID: '',
 }
 
