@@ -54,14 +54,14 @@ import Link from 'next/link';
         </Text>
   
         <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-          <TextInput label="Your email" placeholder="email@example.com" required />
+          <TextInput label="Your email" placeholder="email@example.com" required type={"email"} />
           <Group position="apart" mt="lg" className={classes.controls}>
             <Anchor color="dimmed" size="sm" className={classes.control}>
               <Center inline>
                 <Link href={"/"} >Back to login page</Link>
               </Center>
             </Anchor>
-            <Button className={classes.control}>Reset password</Button>
+            <Button className={classes.control} onClick={resetPassword}>Reset password</Button>
           </Group>
         </Paper>
       </Container>

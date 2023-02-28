@@ -36,11 +36,6 @@ const useStyles = createStyles((theme) => ({
     },
   }));
 
-  const helpButton = () => {
-    console.log("Help button clicked");
-
-  }
-
     export default function MainMenu() {
     const { classes } = useStyles();
 
@@ -55,17 +50,7 @@ const useStyles = createStyles((theme) => ({
 
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Group position="apart" mt="lg" className={classes.controls}>
-                    <Button>
-                        View Sets
-                    </Button>
-                    <Button>
-                        Settings
-                    </Button>
-                    <Link href={"/mainmenu/help"}>
-                      <Button onClick={helpButton}>
-                        Help
-                      </Button>
-                    </Link>
+                    <p>Instructions here</p>
                 </Group>
             </Paper>
         </Container>
