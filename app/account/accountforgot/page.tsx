@@ -41,14 +41,10 @@ const resetPassword = () => {
   const emailInput = document.getElementById("email") as HTMLInputElement;
 
   const email = emailInput.value;
-
-  if (!email) {
-    console.log("please enter a valid email address");
-    alert("please enter a valid email address");
-    //return false;
-  }
-  console.log("Reset password");
+  
   console.log("email: " + email);
+  console.log("Reset password");
+  
 
 }
 
@@ -67,15 +63,16 @@ export default function ForgotPassword() {
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
         <form>
           <TextInput label="Your email" placeholder="email@example.com" required type={"email"} />
+
+          <Group position="apart" mt="lg" className={classes.controls}>
+            <Anchor color="dimmed" size="sm" className={classes.control}>
+              <Center inline>
+                <Link href={"/"} >Back to login page</Link>
+              </Center>
+            </Anchor>
+            <Button className={classes.control} onClick={resetPassword}>Reset password</Button>
+          </Group>
         </form>
-        <Group position="apart" mt="lg" className={classes.controls}>
-          <Anchor color="dimmed" size="sm" className={classes.control}>
-            <Center inline>
-              <Link href={"/"} >Back to login page</Link>
-            </Center>
-          </Anchor>
-          <Button className={classes.control} onClick={resetPassword}>Reset password</Button>
-        </Group>
       </Paper>
     </Container>
   );
