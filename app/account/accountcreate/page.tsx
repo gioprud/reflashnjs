@@ -12,9 +12,31 @@ import {
   Anchor,
   Center,
   Box,
+  PasswordInput,
 } from '@mantine/core';
 //import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
 import Link from 'next/link';
+
+const useStyles = createStyles((theme) => ({
+  title: {
+    fontSize: 26,
+    fontWeight: 900,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  },
+
+  controls: {
+    [theme.fn.smallerThan('xs')]: {
+      flexDirection: 'column-reverse',
+    },
+  },
+
+  control: {
+    [theme.fn.smallerThan('xs')]: {
+      width: '100%',
+      textAlign: 'center',
+    },
+  },
+}));
 
 const createNewAccount = () => {
   console.log("Create new account");
@@ -94,11 +116,12 @@ const createNewAccount = () => {
 
 
 export default function CreateAccount() {
+  const { classes } = useStyles();
 
 
   return (
     <Container size={460} my={30}>
-      <Title sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+      <Title className={classes.title} sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
         align="center">
         Reflash!
         Create your account
@@ -106,12 +129,16 @@ export default function CreateAccount() {
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
         <form>
           <TextInput id='username' label="Username" placeholder="username" required />
-          <TextInput id='password' label="Password" placeholder="password" required minLength={7} maxLength={20} />
+          <PasswordInput id='password' label="Password" placeholder="password" required minLength={7} maxLength={20} />
           <TextInput id='firstname' label="First Name" placeholder="first name" required />
           <TextInput id='lastname' label="Last Name" placeholder="last name" required />
           <TextInput id='email' label="Email" placeholder="email" required type={"email"} />
-          <Link href={"/"} >Back to login page</Link>
-          <Button onClick={createNewAccount}>Create Account</Button>
+          <Anchor color="dimmed" size="sm" className={classes.control}>
+              <Center inline>
+                <Link href={"/"} >Back to login page</Link>
+              </Center>
+            </Anchor>
+          <Button className={classes.control} onClick={createNewAccount}>Create Account</Button>
         </form>
       </Paper>
     </Container>
