@@ -15,27 +15,6 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 
-const useStyles = createStyles((theme) => ({
-  title: {
-    fontSize: 26,
-    fontWeight: 900,
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-  },
-
-  controls: {
-    [theme.fn.smallerThan('xs')]: {
-      flexDirection: 'column-reverse',
-    },
-  },
-
-  control: {
-    [theme.fn.smallerThan('xs')]: {
-      width: '100%',
-      textAlign: 'center',
-    },
-  },
-}));
-
 const resetPassword = () => {
 
   const emailInput = document.getElementById("email") as HTMLInputElement;
@@ -49,11 +28,10 @@ const resetPassword = () => {
 }
 
 export default function ForgotPassword() {
-  const { classes } = useStyles();
 
   return (
     <Container size={460} my={30}>
-      <Title className={classes.title} align="center">
+      <Title align="center">
         Forgot your password?
       </Title>
       <Text color="dimmed" size="sm" align="center">
@@ -64,13 +42,13 @@ export default function ForgotPassword() {
         <form>
           <TextInput label="Your email" placeholder="email@example.com" required type={"email"} />
 
-          <Group position="apart" mt="lg" className={classes.controls}>
-            <Anchor color="dimmed" size="sm" className={classes.control}>
+          <Group position="apart" mt="lg">
+            <Anchor color="dimmed" size="sm">
               <Center inline>
                 <Link href={"/"} >Back to login page</Link>
               </Center>
             </Anchor>
-            <Button className={classes.control} onClick={resetPassword}>Reset password</Button>
+            <Button onClick={resetPassword}>Reset password</Button>
           </Group>
         </form>
       </Paper>

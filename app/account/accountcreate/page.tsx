@@ -16,6 +16,7 @@ import {
 } from '@mantine/core';
 //import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
 import Link from 'next/link';
+import * as fs from 'fs';
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -86,7 +87,7 @@ const createNewAccount = () => {
   
   if (flag == true) {
 
-  const url = "https://192320c5-6818-4070-b553-d5d1a2d2b4cd.mock.pstmn.io";
+  const url = "/api/pythonstuff/createaccount";
   const data = {
     username: username,
     password: password,
@@ -94,6 +95,12 @@ const createNewAccount = () => {
     lastName: lastName,
     email: email
   };
+
+  const jsonString = JSON.stringify(data);
+
+
+  fs.writeFileSync('data.json', jsonString, { encoding: 'utf8' });
+
 
     fetch(url, {
       method: 'POST',
@@ -111,8 +118,11 @@ const createNewAccount = () => {
         console.error('Error:', error);
         alert("Error creating account");
       });
+
+      const handleChange = (event: { target: { name?: any; value?: any; }; }) => {
+        const { value } = event.target;
   }
-}
+}}
 
 
 export default function CreateAccount() {
