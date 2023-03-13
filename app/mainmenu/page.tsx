@@ -64,6 +64,9 @@ export default function MainMenu() {
           <Button component={Link} href={"/mainmenu/help"} onClick={helpButton}>
             Help
           </Button>
+          <Text color="blue" component={Link} href={"/mainmenu"} >
+            Back to Main Menu
+          </Text>
         </Group>
       </Paper>
     </Container>

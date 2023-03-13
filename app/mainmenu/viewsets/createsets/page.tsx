@@ -19,10 +19,10 @@ import Link from 'next/link';
 const createNewSet = () => {
   console.log("Create new set");
 
-  const setNameInput = document.getElementById("setname") as HTMLInputElement;
+  const setNameInput = document.getElementById("setName") as HTMLInputElement;
   const subjectInput = document.getElementById("subject") as HTMLInputElement;
   const questionInput = document.getElementById("question") as HTMLInputElement;
-  const answerInput = document.getElementById("lastname") as HTMLInputElement;
+  const answerInput = document.getElementById("answer") as HTMLInputElement;
 
   const setName = setNameInput.value;
   const subject = subjectInput.value;
@@ -95,6 +95,7 @@ export default function CreateSet() {
             <Button onClick={createNewSet}>Create Set</Button>
           </Group>
         </form>
+        <Link href={"/"} >Back to login page</Link>
       </Paper>
     </Container>
   );

@@ -14,6 +14,7 @@ import {
     Box,
 } from '@mantine/core';
 import Link from 'next/link';
+import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal } from "react";
 import { Carousel } from '@mantine/carousel';
 
 const useStyles = createStyles((theme) => ({
@@ -51,6 +52,20 @@ const revealAnswer = () => {
     //on button click, toggle answer
 }
 
+const populateCards = () => {
+    //on button click, populate cards with set data
+    
+}
+
+function Data(){
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        fetch('https://b61fc227-6f8e-49e9-8a14-2a7bc2505066.mock.pstmn.io')
+            .then(res => res.json())
+            .then(data => setData(data));
+    }, []);
+}
+
 export default function OwnedSets() {
     const { classes } = useStyles();
 
@@ -65,7 +80,7 @@ export default function OwnedSets() {
 
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Carousel maw={320} mx="auto" withIndicators height={200}>
-                    <Carousel.Slide>1</Carousel.Slide>
+                    <Carousel.Slide>data: {Data.length}</Carousel.Slide>
                     <Carousel.Slide>2</Carousel.Slide>
                     <Carousel.Slide>3</Carousel.Slide>
                     {/* ...other slides */}
