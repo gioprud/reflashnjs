@@ -49,22 +49,22 @@ const createNewSet = () => {
   const jsonString = JSON.stringify(data);
 
 
-    fetch('https://b61fc227-6f8e-49e9-8a14-2a7bc2505066.mock.pstmn.io', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+  fetch('https://b61fc227-6f8e-49e9-8a14-2a7bc2505066.mock.pstmn.io', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      alert("set created and sent to server");
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        alert("set created and sent to server");
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert("Error sending set to server");
-      });
+    .catch((error) => {
+      console.error('Error:', error);
+      alert("Error sending set to server");
+    });
 }
 
 function addQuestion() {
@@ -95,7 +95,11 @@ export default function CreateSet() {
             <Button onClick={createNewSet}>Create Set</Button>
           </Group>
         </form>
-        <Link href={"/"} >Back to login page</Link>
+        <Link href="/mainmenu/viewsets">
+          <Button>
+            Back
+          </Button>
+        </Link>
       </Paper>
     </Container>
   );

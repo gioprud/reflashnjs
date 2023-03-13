@@ -80,11 +80,21 @@ export default function OwnedSets() {
 
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Carousel maw={320} mx="auto" withIndicators height={200}>
-                    <Carousel.Slide>data: {Data.length}</Carousel.Slide>
+                    <Carousel.Slide>
+                        cardTitle: {Data.name}
+                        data: {Data.length}
+                        </Carousel.Slide>
                     <Carousel.Slide>2</Carousel.Slide>
                     <Carousel.Slide>3</Carousel.Slide>
                     {/* ...other slides */}
                 </Carousel>
+                <Group position="center" mt="xl">
+                    <Link href="/mainmenu/viewsets">
+                    <Button>
+                        Back
+                    </Button>
+                    </Link>
+                </Group>
             </Paper>
         </Container>
     )
