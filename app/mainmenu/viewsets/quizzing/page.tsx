@@ -37,17 +37,17 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const nextCard = () => {
+const viewNextCard = () => {
     //on button click, go to next card
 
 
 }
 
-const prevCard = () => {
+const viewPrevCard = () => {
     //on button click, go to previous card
 }
 
-const revealAnswer = () => {
+const grade = () => {
     //on button click, toggle answer
 }
 
@@ -66,7 +66,7 @@ export default function quizzing() {
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Group position="apart" mt="lg" className={classes.controls}>
                     <TextInput id = "answer" placeholder="answer here" />
-                    <Button onClick={revealAnswer}>
+                    <Button onClick={grade}>
                         Reveal Answer
                     </Button>
                 </Group>

@@ -16,7 +16,6 @@ import {
 } from '@mantine/core';
 //import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
 import Link from 'next/link';
-import * as fs from 'fs';
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -97,9 +96,6 @@ const createNewAccount = () => {
   };
 
   const jsonString = JSON.stringify(data);
-
-
-  fs.writeFileSync('data.json', jsonString, { encoding: 'utf8' });
 
 
     fetch(url, {

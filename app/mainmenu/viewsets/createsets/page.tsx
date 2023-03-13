@@ -39,12 +39,37 @@ const createNewSet = () => {
   console.log("Question: " + question);
   console.log("Answer: " + answer);
 
-  const data ={
+  const data = {
     setName: setName,
     subject: subject,
     question: question,
     answer: answer
   }
+
+  const jsonString = JSON.stringify(data);
+
+
+    fetch('https://b61fc227-6f8e-49e9-8a14-2a7bc2505066.mock.pstmn.io', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        alert("set created and sent to server");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Error sending set to server");
+      });
+}
+
+function addQuestion() {
+  console.log("Add question");
+
 }
 
 export default function CreateSet() {
@@ -65,8 +90,10 @@ export default function CreateSet() {
             <TextInput id='question' label="Question" placeholder="Question, e.x 2+2=" required />
             <TextInput id='answer' label="Answer" placeholder="Answer, e.x 4" required />
           </Group>
-
-          <Button>Add More Questions</Button>
+          <Group position="center" mt="lg">
+            <Button onClick={addQuestion}>Add More Questions</Button>
+            <Button onClick={createNewSet}>Create Set</Button>
+          </Group>
         </form>
       </Paper>
     </Container>
