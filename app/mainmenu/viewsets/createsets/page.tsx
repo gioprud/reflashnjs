@@ -49,7 +49,7 @@ const createNewSet = () => {
   const jsonString = JSON.stringify(data);
 
 
-  fetch('https://b61fc227-6f8e-49e9-8a14-2a7bc2505066.mock.pstmn.io', {
+  fetch('/api/sets/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

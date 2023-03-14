@@ -57,14 +57,22 @@ const populateCards = () => {
     
 }
 
-function Data(){
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        fetch('https://b61fc227-6f8e-49e9-8a14-2a7bc2505066.mock.pstmn.io')
-            .then(res => res.json())
-            .then(data => setData(data));
-    }, []);
-}
+async function getData() {
+    const res = await fetch('/api/redirect');
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+  
+    // Recommendation: handle errors
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data');
+    }
+    return res.json();
+  }
+  
+    async function Page() {
+    const data = await getData();
+  }
 
 export default function OwnedSets() {
     const { classes } = useStyles();
@@ -81,14 +89,17 @@ export default function OwnedSets() {
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Carousel maw={320} mx="auto" withIndicators height={200}>
                     <Carousel.Slide>
-                        cardTitle: {Data.name}
-                        data: {Data.length}
+                        cardTitle: {Page.name}
+                        data: {Page.length}
                         </Carousel.Slide>
                     <Carousel.Slide>2</Carousel.Slide>
                     <Carousel.Slide>3</Carousel.Slide>
                     {/* ...other slides */}
                 </Carousel>
                 <Group position="center" mt="xl">
+                <Button onClick={Page}>
+                        pull data
+                    </Button>
                     <Link href="/mainmenu/viewsets">
                     <Button>
                         Back

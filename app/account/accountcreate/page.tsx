@@ -86,7 +86,7 @@ const createNewAccount = () => {
   
   if (flag == true) {
 
-  const url = "https://192320c5-6818-4070-b553-d5d1a2d2b4cd.mock.pstmn.io";
+  const url = "/api/account/create";
   const data = {
     username: username,
     password: password,
