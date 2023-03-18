@@ -58,7 +58,7 @@ const populateCards = () => {
 }
 
 async function getData() {
-    const res = await fetch('/api/redirect');
+    const res = await fetch('/api/get_decks');
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
   
@@ -90,7 +90,6 @@ export default function OwnedSets() {
                 <Carousel maw={320} mx="auto" withIndicators height={200}>
                     <Carousel.Slide>
                         cardTitle: {Page.name}
-                        data: {Page.length}
                         </Carousel.Slide>
                     <Carousel.Slide>2</Carousel.Slide>
                     <Carousel.Slide>3</Carousel.Slide>
