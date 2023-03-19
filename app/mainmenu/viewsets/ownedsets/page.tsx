@@ -53,7 +53,7 @@ const useStyles = createStyles((theme) => ({
       fontWeight: 500,
       color: theme.black,
       lineHeight: 1.2,
-      fontSize: 30,
+      fontSize: 20,
       marginTop: theme.spacing.xs,
     },
   
