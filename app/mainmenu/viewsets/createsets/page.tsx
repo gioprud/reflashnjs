@@ -80,9 +80,12 @@ export default function CreateSet() {
       <Title sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
         align="center">
         Reflash!
-        Create A Set
       </Title>
-      <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
+      <Paper withBorder shadow="md" p={100} radius="md" mt="xl">
+        <Title sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+          align="center">
+          Create Set
+        </Title>
         <form>
           <TextInput id='setName' label="Set Name" placeholder="Set Name" required />
           <TextInput id='subject' label="Subject" placeholder="Subject, e.x Math" required minLength={7} maxLength={20} />
@@ -90,16 +93,17 @@ export default function CreateSet() {
             <TextInput id='question' label="Question" placeholder="Question, e.x 2+2=" required />
             <TextInput id='answer' label="Answer" placeholder="Answer, e.x 4" required />
           </Group>
-          <Group position="center" mt="lg">
-            <Button onClick={addQuestion}>Add More Questions</Button>
-            <Button onClick={createNewSet}>Create Set</Button>
-          </Group>
         </form>
-        <Link href="/mainmenu/viewsets">
-          <Button>
-            Back
-          </Button>
-        </Link>
+        <Group position="center" mt="lg">
+          <Button onClick={addQuestion}>Add More Questions</Button>
+          <Button onClick={createNewSet}>Create Set</Button>
+          <Link href="/mainmenu/viewsets">
+            <Button>
+              Back
+            </Button>
+          </Link>
+        </Group>
+
       </Paper>
     </Container>
   );

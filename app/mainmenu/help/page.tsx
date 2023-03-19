@@ -36,7 +36,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function MainMenu() {
+export default function Help() {
   const { classes } = useStyles();
 
   return (

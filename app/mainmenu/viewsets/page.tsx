@@ -40,7 +40,7 @@ export default function MainMenu() {
   const { classes } = useStyles();
 
   return (
-    <Container size={460} my={30}>
+    <Container size={600} my={30}>
       <Title className={classes.title} align="center">
         Reflash!
       </Title>
