@@ -45,7 +45,7 @@ export default function MainMenu() {
         Reflash!
       </Title>
       <Text color="dimmed" size="sm" align="center">
-        Main Menu
+        View Sets
       </Text>
 
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
@@ -53,13 +53,17 @@ export default function MainMenu() {
           <Button component={Link} href={"/mainmenu/viewsets/createsets"}>
             Create Set
           </Button>
-          <Button component={Link} href={"/mainmenu/viewsets/downloadsets"}>
-            Download Set
+          <Button component={Link} href={"/mainmenu/viewsets/quizzing"}>
+            Test yourself
+
           </Button >
-          <Button component={Link} href={"/mainmenu/viewsets/ownedsets"}>
-            View Downloaded Sets
+          <Button component={Link} href={"/mainmenu/viewsets/availablesets"}>
+            View Available Sets
           </Button>
         </Group>
+        <Text color="blue" component={Link} href={"/mainmenu"} >
+          Back to Main Menu
+        </Text>
       </Paper>
     </Container>
   )

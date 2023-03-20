@@ -70,7 +70,7 @@ const revealAnswer = () => {
 }
 
 const populateCards = () => {
-    //on button click, populate cards with set data
+    // populate cards with set data
     
 }
 
@@ -94,12 +94,13 @@ async function getData() {
 
 
   interface CardPage{
-    Question: string;
-    Answer: string;
+    card: CardProps;
+    question: string;
+    answer: string;
   }
 
   //Populates a card in the carousel with the question and answer
-  function Card({ card, question, answer }: CardProps) {
+  function Card({ card, question, answer }: CardPage) {
     const { classes } = useStyles();
   
     return (
