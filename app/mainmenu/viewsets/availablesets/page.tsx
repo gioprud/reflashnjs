@@ -95,12 +95,13 @@ async function getData() {
 
   interface CardPage{
     card: CardProps;
+    subject: string;
     question: string;
     answer: string;
   }
 
   //Populates a card in the carousel with the question and answer
-  function Card({ card, question, answer }: CardPage) {
+  function Card({ card, subject, question, answer }: CardPage) {
     const { classes } = useStyles();
   
     return (
@@ -118,6 +119,9 @@ async function getData() {
           <Title order={5} className={classes.answer}>
             {answer}
           </Title>
+          <Text className={classes.question} size="xs">
+            {subject}
+          </Text>
         </div>
         
       </Paper>
@@ -127,18 +131,22 @@ async function getData() {
   //Data stored for each card
   const data = [
     {
+        subject: 'Math',
         question: '2x2',
         answer: '4',
     },
     {
+        subject: 'History',
         question: 'Who was the first president of the United States?',
         answer: 'George Washington',
     },
-    {
+    { 
+        subject: 'Science',
         question: 'What is the fear of the number 13?',
         answer: 'Triskaidekaphobia',
     },
     {
+        subject: 'Subject 4',
         question: 'Question 4',
         answer: 'Category 4',
     },
@@ -163,6 +171,12 @@ export default function OwnedSets() {
             </Text>
 
             <Paper withBorder shadow="md" p={90} radius="md" mt="xl">
+            <Group position='center'>
+              <Text className={classes.paptitle} size="xl">
+                Study Set Name
+              </Text>
+              </Group>
+              
                 <Carousel slideSize='70%' maw={320} mx="auto" withIndicators height={200}>
                     {slides}
                 </Carousel>

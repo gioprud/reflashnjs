@@ -65,11 +65,19 @@ export default function quizzing() {
 
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Group position="apart" mt="lg" className={classes.controls}>
-                    <TextInput id = "answer" placeholder="answer here" />
+                    <TextInput id="answer" placeholder="answer here" />
                     <Button onClick={grade}>
                         Reveal Answer
                     </Button>
                 </Group>
+                <Group>
+                    <Link href="/mainmenu/viewsets">
+                    <Button>
+                        Back
+                    </Button>
+                </Link>
+                </Group>
+
             </Paper>
         </Container>
     )
