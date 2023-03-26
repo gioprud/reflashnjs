@@ -60,6 +60,9 @@ export default function MainMenu() {
           <Button component={Link} href={"/mainmenu/viewsets/availablesets"}>
             View Available Sets
           </Button>
+          <Button component={Link} href={"/mainmenu/viewsets/downloadsets"}>
+            set list
+          </Button>
         </Group>
         <Text color="blue" component={Link} href={"/mainmenu"} >
           Back to Main Menu

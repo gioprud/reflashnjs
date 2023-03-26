@@ -19,52 +19,59 @@ import Link from 'next/link';
 const createNewSet = () => {
   console.log("Create new set");
 
-  const setNameInput = document.getElementById("setName") as HTMLInputElement;
-  const subjectInput = document.getElementById("subject") as HTMLInputElement;
-  const questionInput = document.getElementById("question") as HTMLInputElement;
-  const answerInput = document.getElementById("answer") as HTMLInputElement;
+  const setChapterInput = document.getElementById("chapter") as HTMLInputElement;
+  const questionInput = document.getElementById("front") as HTMLInputElement;
+  const answerInput = document.getElementById("back") as HTMLInputElement;
 
-  const setName = setNameInput.value;
-  const subject = subjectInput.value;
-  const question = questionInput.value;
-  const answer = answerInput.value;
+  const chapter = setChapterInput.value;
+  const front = questionInput.value;
+  const back = answerInput.value;
 
-  if (setName == null || subject == null) {
+  if (chapter == null) {
     console.log("Set Name and Subject cannot be empty");
     alert("Set Name and Subject cannot be empty");
   }
 
-  console.log("Set Name: " + setName);
-  console.log("Subject: " + subject);
-  console.log("Question: " + question);
-  console.log("Answer: " + answer);
+  console.log("Set Name: " + chapter);
+  console.log("question: " + front);
+  console.log("answer: " + back);
 
   const data = {
-    setName: setName,
-    subject: subject,
-    question: question,
-    answer: answer
+    chapter: chapter,
+    front: front,
+    back: back
   }
 
-  const jsonString = JSON.stringify(data);
+  const handleDownload = async () => {
+    console.log("Download set");
+    const data = [
+      ["chapter", "front", "back"],
+      [chapter, front, back],
+    ];
 
+    const csvContent = "data:text/csv;charset=utf-8," + data.map(e => e.join(",")).join("\n");
 
-  fetch('/api/sets/create', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      alert("set created and sent to server");
+    const formData = new FormData();
+    formData.append('file', new Blob([csvContent], { type: 'text/csv' }), 'data.csv');
+
+    console.log(data);
+
+    await fetch('/api/sets/create', {
+      method: 'POST',
+      body: formData
     })
-    .catch((error) => {
-      console.error('Error:', error);
-      alert("Error sending set to server");
-    });
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        alert("set created and sent to server");
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert("Error sending set to server");
+      });
+  }
+
+  handleDownload();
 }
 
 function addQuestion() {
@@ -87,11 +94,10 @@ export default function CreateSet() {
           Create Set
         </Title>
         <form>
-          <TextInput id='setName' label="Set Name" placeholder="Set Name" required />
-          <TextInput id='subject' label="Subject" placeholder="Subject, e.x Math" required minLength={7} maxLength={20} />
+          <TextInput id='chapter' label="Set Chapter" placeholder="Set Chapter" required />
           <Group position="center" mt="lg">
-            <TextInput id='question' label="Question" placeholder="Question, e.x 2+2=" required />
-            <TextInput id='answer' label="Answer" placeholder="Answer, e.x 4" required />
+            <TextInput id='front' label="Question" placeholder="Question, e.x 2+2=" required />
+            <TextInput id='back' label="Answer" placeholder="Answer, e.x 4" required />
           </Group>
         </form>
         <Group position="center" mt="lg">
