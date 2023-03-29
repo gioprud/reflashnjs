@@ -14,6 +14,8 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 //import { useForm } from 'react-hook-form';
+import type { User } from '@/services/database';
+import { getSession, signIn } from "next-auth/react"
 
 export default function LoginPage() {
   const handleCreateAccount = () => {
@@ -25,20 +27,44 @@ export default function LoginPage() {
 
   }
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     console.log("Sign in");
 
     const usernameInput = document.getElementById("username") as HTMLInputElement;
     const passwordInput = document.getElementById("password") as HTMLInputElement;
-    
+
     const username = usernameInput.value;
     const password = passwordInput.value;
 
     console.log("username: " + username);
     console.log("password: " + password);
+    const res = await signIn('Credentials', { username, password })
+    /*
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const loginRes: { user: false|User } = await res.json();
+    */
+    if (!res) {
+      console.log("login failed");
+      return;
+    }
+    console.log("loginRes: " + res);
+
+
 
 
   }
+  getSession().then(res => {
+    console.log('session', res)
+  })
 
   return (
     <Container size={420} my={40}>
@@ -52,6 +78,7 @@ export default function LoginPage() {
         <Link href={"/account/accountcreate"} onClick={handleCreateAccount}>
           CreateAccount
         </Link>
+
       </Text>
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form id='document'>
@@ -62,13 +89,14 @@ export default function LoginPage() {
             <Link href={"/account/accountforgot"} onClick={handleForgotPassword}>
               forgot password?
             </Link>
-            <Link href={"/mainmenu"} onClick={handleForgotPassword}>
-              skip login test
+            <Link href={"/"} onClick={handleSignIn}>
+              <Button>
+                skip login test
+              </Button>
             </Link>
+
+            <Button onClick={() => signIn()} fullWidth mt="xl">Log in</Button>
           </Group>
-          <Button onClick={handleSignIn} fullWidth mt="xl">
-            Sign in
-          </Button>
         </form>
 
       </Paper>

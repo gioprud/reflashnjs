@@ -86,7 +86,7 @@ const createNewAccount = () => {
   
   if (flag == true) {
 
-  const url = "/api/account/create";
+  const url = "/api/user/register";
   const data = {
     username: username,
     password: password,
@@ -94,9 +94,6 @@ const createNewAccount = () => {
     lastName: lastName,
     email: email
   };
-
-  const jsonString = JSON.stringify(data);
-
 
     fetch(url, {
       method: 'POST',
@@ -117,7 +114,7 @@ const createNewAccount = () => {
 
       const handleChange = (event: { target: { name?: any; value?: any; }; }) => {
         const { value } = event.target;
-  }
+      }
 }}
 
 

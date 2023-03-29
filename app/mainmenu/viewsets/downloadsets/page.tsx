@@ -9,7 +9,7 @@ export default function Viewsets() {
   const rows = SetData.map((element) => (
     <tr key={element.SubjectName}>
       <td>
-        <Link href='/viewsets/availablesets'>{element.SubjectName}</Link>
+        <Link href='mainmenu/viewsets/availablesets'>{element.SubjectName}</Link>
       </td>
       <td>
         {element.SubjectName}

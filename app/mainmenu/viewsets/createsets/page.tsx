@@ -19,24 +19,28 @@ import Link from 'next/link';
 const createNewSet = () => {
   console.log("Create new set");
 
+  const setNameInput = document.getElementById("setName") as HTMLInputElement;
   const setChapterInput = document.getElementById("chapter") as HTMLInputElement;
   const questionInput = document.getElementById("front") as HTMLInputElement;
   const answerInput = document.getElementById("back") as HTMLInputElement;
 
+  const setName = setNameInput.value;
   const chapter = setChapterInput.value;
   const front = questionInput.value;
   const back = answerInput.value;
 
-  if (chapter == null) {
+  if (chapter == null || chapter == "" || front == null || front == "" || back == null || back == "") {
     console.log("Set Name and Subject cannot be empty");
     alert("Set Name and Subject cannot be empty");
   }
 
+  console.log("Set Name: " + setName);
   console.log("Set Name: " + chapter);
   console.log("question: " + front);
   console.log("answer: " + back);
 
   const data = {
+    setName: setName,
     chapter: chapter,
     front: front,
     back: back
@@ -45,8 +49,8 @@ const createNewSet = () => {
   const handleDownload = async () => {
     console.log("Download set");
     const data = [
-      ["chapter", "front", "back"],
-      [chapter, front, back],
+      ["setName","chapter", "front", "back"],
+      [setName,chapter, front, back],
     ];
 
     const csvContent = "data:text/csv;charset=utf-8," + data.map(e => e.join(",")).join("\n");

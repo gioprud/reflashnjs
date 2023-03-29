@@ -48,7 +48,7 @@ const viewPrevCard = () => {
 }
 
 const grade = () => {
-    //on button click, toggle answer
+    //on button click, check if user input matches answer
 }
 
 export default function quizzing() {

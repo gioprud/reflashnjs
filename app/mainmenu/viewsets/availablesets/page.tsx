@@ -1,5 +1,3 @@
-"use client"
-
 import {
   createStyles,
   Paper,
@@ -15,8 +13,9 @@ import {
   CardProps,
 } from '@mantine/core';
 import Link from 'next/link';
-import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal } from "react";
 import { Carousel } from '@mantine/carousel';
+import database from '@/services/database';
+import { useToggle } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -66,7 +65,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const revealAnswer = () => {
-  //on button click, toggle back
+  //on button click, toggle answer
+
+  
 }
 
 const populateCards = () => {
@@ -76,6 +77,7 @@ const populateCards = () => {
 
 //retrieve data from backend
 async function getData() {
+
   const res = await fetch('/api/get_decks');
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
@@ -89,6 +91,7 @@ async function getData() {
 }
 
 async function Page() {
+  //populate page with data
   const data = await getData();
 }
 
@@ -104,6 +107,8 @@ interface CardPage {
 function Card({ card, subject, front, back }: CardPage) {
   const { classes } = useStyles();
 
+  const [value, toggle] = useToggle([{front}, {back}])
+
   return (
     <Paper
       shadow="md"
@@ -113,15 +118,12 @@ function Card({ card, subject, front, back }: CardPage) {
       className={classes.card}
     >
       <Group>
-        <Text className={classes.front} size="xs">
+        <Text className={classes.front} size="xs" onClick={() => toggle()}>
           {front}
         </Text>
         <Title order={5} className={classes.back}>
           {back}
         </Title>
-        <Text className={classes.front} size="xs">
-          {subject}
-        </Text>
       </Group>
 
 
@@ -129,7 +131,7 @@ function Card({ card, subject, front, back }: CardPage) {
   );
 }
 
-//Data stored for each card
+//sample Data stored for each card
 const data = [
   {
     subject: 'Math',
@@ -174,9 +176,10 @@ const data = [
 
 ];
 
-export default function OwnedSets() {
+export default async function OwnedSets() {
   const { classes } = useStyles();
-  const slides = data.map((card, index) => (
+  const cards = await database.getLatestCards();
+  const slides = cards.map((card, index) => (
     <Carousel.Slide key={index}>
       <Card card={card} front={card.front} back={card.back} />
     </Carousel.Slide>
@@ -204,6 +207,9 @@ export default function OwnedSets() {
         <Group position="center" mt="xl">
           <Button onClick={Page}>
            fetch data
+          </Button>
+          <Button>
+           reveal answer
           </Button>
           <Link href="/mainmenu/viewsets">
             <Button>
