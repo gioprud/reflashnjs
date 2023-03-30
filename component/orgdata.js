@@ -6,12 +6,12 @@ export const SetData = [
                 ChapterName: "Addition",
                 SetQuestion: [
                     {
-                        Question: "4+4",
-                        Answer: "8",
+                        front: "4+4",
+                        back: "8",
                     },
                     {
-                        Question: "10+4",
-                        Answer: "14",
+                        front: "10+4",
+                        back: "14",
                     },
                 ],
             },
@@ -19,12 +19,12 @@ export const SetData = [
                 ChapterName: "Subtraction",
                 SetQuestion: [
                     {
-                        Question: "4-4",
-                        Answer: "0",
+                        front: "4-4",
+                        back: "0",
                     },
                     {
-                        Question: "10-4",
-                        Answer: "6",
+                        front: "10-4",
+                        back: "6",
                     },
                 ],
             },
@@ -32,12 +32,12 @@ export const SetData = [
                 ChapterName: "Multiplication",
                 SetQuestion: [
                     {
-                        Question: "4*4",
-                        Answer: "16",
+                        front: "4*4",
+                        back: "16",
                     },
                     {
-                        Question: "10*4",
-                        Answer: "40",
+                        front: "10*4",
+                        back: "40",
                     },
                 ],
             },
@@ -50,12 +50,12 @@ export const SetData = [
                 ChapterName: "Geology",
                 SetQuestion: [
                     {
-                        Question: "What is the name of the largest volcano in the world?",
-                        Answer: "Mauna Loa",
+                        front: "What is the name of the largest volcano in the world?",
+                        back: "Mauna Loa",
                     },
                     {
-                        Question: "What is the name of the largest ocean in the world?",
-                        Answer: "Pacific Ocean",
+                        front: "What is the name of the largest ocean in the world?",
+                        back: "Pacific Ocean",
                     },
                 ],
             },
@@ -63,12 +63,12 @@ export const SetData = [
                 ChapterName: "Biology",
                 SetQuestion: [
                     {
-                        Question: "What is the name of the largest animal in the world?",
-                        Answer: "Blue Whale",
+                        front: "What is the name of the largest animal in the world?",
+                        back: "Blue Whale",
                     },
                     {
-                        Question: "What is the name of the largest insect in the world?",
-                        Answer: "Goliath Beetle",
+                        front: "What is the name of the largest insect in the world?",
+                        back: "Goliath Beetle",
                     },
                 ],
             },
@@ -81,16 +81,16 @@ export const SetData = [
                 ChapterName: "Chinese",
                 SetQuestion: [
                     {
-                        Question: "What was the second dynasty of China?",
-                        Answer: "Shang Dynasty",
+                        front: "What was the second dynasty of China?",
+                        back: "Shang Dynasty",
                     },
                     {
-                        Question: "What was the first dynasty of China?",
-                        Answer: "Xia Dynasty",
+                        front: "What was the first dynasty of China?",
+                        back: "Xia Dynasty",
                     },
                     {
-                        Question: "When was the Great Wall of China built?",
-                        Answer: "7th century BC",
+                        front: "When was the Great Wall of China built?",
+                        back: "7th century BC",
                     },
                 ],
             },
@@ -98,12 +98,12 @@ export const SetData = [
                 ChapterName: "American",
                 SetQuestion: [
                     {
-                        Question: "What was the first state of the United States?",
-                        Answer: "Delaware",
+                        front: "What was the first state of the United States?",
+                        back: "Delaware",
                     },
                     {
-                        Question: "Who was the first president of the United States?",
-                        Answer: "George Washington",
+                        front: "Who was the first president of the United States?",
+                        back: "George Washington",
                     },
                 ],
             },
@@ -116,12 +116,12 @@ export const SetData = [
                 ChapterName: "Grammar",
                 SetQuestion: [
                     {
-                        Question: "What is the past tense of the verb 'to be'?",
-                        Answer: "Was/Were",
+                        front: "What is the past tense of the verb 'to be'?",
+                        back: "Was/Were",
                     },
                     {
-                        Question: "What is the past tense of the verb 'to have'?",
-                        Answer: "Had",
+                        front: "What is the past tense of the verb 'to have'?",
+                        back: "Had",
                     },
                 ],
             },
@@ -129,12 +129,12 @@ export const SetData = [
                 ChapterName: "Vocabulary",
                 SetQuestion: [
                     {
-                        Question: "What is the meaning of the word 'abhor'?",
-                        Answer: "To hate",
+                        front: "What is the meaning of the word 'abhor'?",
+                        back: "To hate",
                     },
                     {
-                        Question: "What is the meaning of the word 'abject'?",
-                        Answer: "Complete and utter failure",
+                        front: "What is the meaning of the word 'abject'?",
+                        back: "Complete and utter failure",
                     },
                 ],
             },

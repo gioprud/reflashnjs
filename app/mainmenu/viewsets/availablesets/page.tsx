@@ -131,51 +131,6 @@ function Card({ card, subject, front, back }: CardPage) {
   );
 }
 
-//sample Data stored for each card
-const data = [
-  {
-    subject: 'Math',
-    front: '2x2',
-    back: '4',
-    chapter: 1,
-    id: 0,
-    interval: 1,
-    due_date: "5023-01-01 00:00:00",
-    seen: 0,
-  },
-  {
-    subject: 'History',
-    front: 'Who was the first president of the United States?',
-    back: 'George Washington',
-    chapter: 2,
-    id: 1,
-    interval: 1,
-    due_date: "5023-01-01 00:00:00",
-    seen: 0,
-  },
-  {
-    subject: 'Science',
-    front: 'What is the fear of the number 13?',
-    back: 'Triskaidekaphobia',
-    chapter: 2,
-    id: 2,
-    interval: 1,
-    due_date: "5023-01-01 00:00:00",
-    seen: 0,
-  },
-  {
-    subject: 'Subject 4',
-    front: 'Question 4',
-    back: 'Category 4',
-    chapter: 3,
-    id: 3,
-    interval: 1,
-    due_date: "5023-01-01 00:00:00",
-    seen: 0,
-  },
-
-];
-
 export default async function OwnedSets() {
   const { classes } = useStyles();
   const cards = await database.getLatestCards();

@@ -13,8 +13,9 @@ import {
   Center,
   Box,
 } from '@mantine/core';
-//import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
+import { Dropzone } from '@mantine/dropzone';
 import Link from 'next/link';
+import React from 'react';
 
 const createNewSet = () => {
   console.log("Create new set");
@@ -62,7 +63,10 @@ const createNewSet = () => {
 
     await fetch('/api/sets/create', {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
     })
       .then(response => response.json())
       .then(data => {
@@ -84,6 +88,7 @@ function addQuestion() {
 }
 
 export default function CreateSet() {
+  const openRef = React.useRef(null);
 
 
   return (
@@ -104,6 +109,13 @@ export default function CreateSet() {
             <TextInput id='back' label="Answer" placeholder="Answer, e.x 4" required />
           </Group>
         </form>
+        <Group position="center" mt="lg">
+        <Dropzone onDrop={(files) => console.log('files accepted:', files)}
+        onReject={(files) => console.log('files rejected', files)}
+        maxSize={60 * 1024 ** 2}>
+        {/* children */}
+      </Dropzone>
+        </Group>
         <Group position="center" mt="lg">
           <Button onClick={addQuestion}>Add More Questions</Button>
           <Button onClick={createNewSet}>Create Set</Button>
