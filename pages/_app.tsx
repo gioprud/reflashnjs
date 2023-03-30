@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { useState } from 'react';
 import { setCookie } from 'cookies-next';
+import { SessionProvider } from 'next-auth/react';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -21,13 +22,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <title>Reflash</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-
+      <SessionProvider session={pageProps.session}>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider
           withGlobalStyles withNormalizeCSS theme={{ colorScheme: colorScheme}}>
           <Component {...pageProps} />
         </MantineProvider>
       </ColorSchemeProvider>
+      </SessionProvider>
     </>
   );
 }

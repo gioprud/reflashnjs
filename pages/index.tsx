@@ -15,12 +15,26 @@ import {
 import Link from 'next/link';
 //import { useForm } from 'react-hook-form';
 import type { User } from '@/services/database';
-import { getSession, signIn } from "next-auth/react"
+import { getSession, signIn, useSession } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
+  const router = useRouter()
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "authenticated") {
+    router.push('/mainmenu')
+    return <p>logged in</p>
+  }
   const handleCreateAccount = () => {
     console.log("Create account");
   }
+  
+ 
 
   const handleForgotPassword = () => {
     console.log("Forgot password");
@@ -30,10 +44,6 @@ export default function LoginPage() {
   const handleSkip = () => {
     console.log("Skip login");
   }
-  
-  getSession().then(res => {
-    console.log('session', res)
-  })
 
   return (
     <Container size={420} my={40}>

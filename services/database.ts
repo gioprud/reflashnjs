@@ -24,6 +24,7 @@ export type Card = {
     id: number;
     dueDate: Date;
     seen: boolean;
+    user_id: ObjectId;
 }
 
 if (!process.env.NAMESPACE) throw new Error('No NAMESPACE env var set');
@@ -96,7 +97,7 @@ class Database {
         return result.insertedId;
     }
     
-    async createCard(data: Card) {
+    async createCard(data: Card, user_id: ObjectId) {
         const client = await this.getClient();
         const db = client.db(process.env.NAMESPACE);
         const collection: Collection<Card> = db.collection('cards');
@@ -106,7 +107,8 @@ class Database {
             chapter: data.chapter,
             id: data.id,
             dueDate: data.dueDate,
-            seen: data.seen
+            seen: data.seen,
+            user_id: user_id
         });
         return result.insertedId;
     }

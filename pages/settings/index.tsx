@@ -18,6 +18,8 @@ import {
 import Link from 'next/link';
 import { useState } from "react";
 import { useTheme } from "@emotion/react";
+import { signOut } from "next-auth/react"
+import { useSession, getSession } from "next-auth/react"
 
 
 const useStyles = createStyles((theme) => ({
@@ -44,6 +46,16 @@ const useStyles = createStyles((theme) => ({
 
 
 export default function Settings() {
+    const { data: session, status } = useSession()
+
+    if (status === "loading") {
+        return <p>Loading...</p>
+    }
+
+    if (status === "unauthenticated") {
+        return <p>Access Denied</p>
+    }
+
     const { classes } = useStyles();
 
     return (
@@ -82,12 +94,11 @@ export default function Settings() {
                 </Group>
                 <Group>
                     <Button
-                        component={Link}
-                        href={"/"}
                         variant="outline"
                         color="red"
                         fullWidth
                         mt="xl"
+                        onClick={() => signOut({ callbackUrl: "/" })}
                     >
                         Sign Out
                     </Button>

@@ -13,6 +13,7 @@ import {
   Center,
   Box,
 } from '@mantine/core';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
@@ -42,7 +43,17 @@ const helpButton = () => {
 }
 
 export default function MainMenu() {
+  const { data: session, status } = useSession()
   const { classes } = useStyles();
+  
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
+
 
   return (
     <Container size={460} my={30}>
