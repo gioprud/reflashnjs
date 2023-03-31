@@ -1,8 +1,8 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import database from '@/services/database'
 
-export const authOptions = {
+export const authOptions:NextAuthOptions = {
     // Configure one or more authentication providers
     providers: [
         CredentialsProvider({
@@ -44,12 +44,12 @@ export const authOptions = {
 
     secret: process.env.JWT_SECRET,
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user }: any) => {
       user && (token.user = user)
       return token
     },
     //whatever value we return here will be the value of the next-auth session
-    async session({ session, token, user }) {
+    async session({ session, token, user }: any) {
       return {
         ...session,
         user: { ...session.user, ...user, ...token.user! } // combine the session and db user

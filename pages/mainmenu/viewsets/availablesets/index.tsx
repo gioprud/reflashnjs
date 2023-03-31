@@ -99,13 +99,12 @@ async function Page() {
 
 interface CardPage {
   card: CardProps;
-  subject: string;
   front: string;
   back: string;
 }
 
 //Populates a card in the carousel with the question and back
-function Card({ card, subject, front, back }: CardPage) {
+function Card({ card, front, back }: CardPage) {
   const { classes } = useStyles();
 
   const [value, toggle] = useToggle([{front}, {back}])
@@ -132,11 +131,12 @@ function Card({ card, subject, front, back }: CardPage) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const session = await getSession(context)
   console.log(session?.user);
   console.log('got here')
   // Fetch data from external API
+  // @ts-ignore
   const cards = await database.getLatestCards(session?.user.id);
 
   // Pass data to the page via props
@@ -148,11 +148,11 @@ export async function getServerSideProps(context) {
     })) } }
 }
 
-export default function OwnedSets({ cards }) {
+export default function OwnedSets({ cards }: { cards: CardPage[] }) {
   const { classes } = useStyles();
   const slides = cards.map((card, index) => (
     <Carousel.Slide key={index}>
-      <Card card={card} front={card.front} back={card.back} />
+      <Card card={card as any} front={card.front} back={card.back} />
     </Carousel.Slide>
   ));
 
