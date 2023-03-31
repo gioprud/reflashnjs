@@ -22,7 +22,7 @@ export type Card = {
     back: string;
     chapter: number;
     id: number;
-    dueDate: Date;
+    due_date: Date;
     seen: boolean;
     user_id: ObjectId;
 }
@@ -106,18 +106,18 @@ class Database {
             back: data.back,
             chapter: data.chapter,
             id: data.id,
-            dueDate: data.dueDate,
+            due_date: data.due_date,
             seen: data.seen,
             user_id: user_id
         });
         return result.insertedId;
     }
 
-    async getLatestCards() {
+    async getLatestCards(userid: string) {
         const client = await this.getClient();
         const db = client.db(process.env.NAMESPACE);
         const collection: Collection<Card> = db.collection('cards');
-        const result = await collection.find().sort({ dueDate: 1 }).limit(10).toArray();
+        const result = await collection.find({user_id: new ObjectId(userid)}).sort({ dueDate: 1 }).toArray();
         return result;
     }
 }

@@ -29,13 +29,34 @@ export const authOptions = {
                 const user = await database.userLogin(credentials.username, credentials.password);
                 if (!user) return null
                 const returnUser = {
-                    ...user,
+                    ...JSON.parse(JSON.stringify(user)),
                     id: user._id.toString()
                 }
+                console.log(returnUser)
                 return returnUser;
-            }
+            },
+
         })
-    ]
+    ],
+    session: {
+        strategy: 'jwt',
+    },
+
+    secret: process.env.JWT_SECRET,
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user)
+      return token
+    },
+    //whatever value we return here will be the value of the next-auth session
+    async session({ session, token, user }) {
+      return {
+        ...session,
+        user: { ...session.user, ...user, ...token.user! } // combine the session and db user
+      }
+    }
   }
+
+}
 
 export default NextAuth(authOptions);

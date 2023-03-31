@@ -15,6 +15,7 @@ import {
 } from '@mantine/core';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import router from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -51,7 +52,8 @@ export default function MainMenu() {
   }
 
   if (status === "unauthenticated") {
-    return <p>Access Denied</p>
+    router.push('/')
+    alert ("You need to be logged in to access this page.")
   }
 
 

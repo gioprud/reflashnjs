@@ -79,13 +79,7 @@ export default function Settings() {
                         app font color
                     </p>
                 </Group>
-                < Group position="apart" mt="lg" className={classes.controls}>
-                    <Center>
-                        <Text color="blue" component={Link} href={"/mainmenu"} >
-                            Back to Main Menu
-                        </Text>
-                    </Center>
-                </Group>
+
                 <Group position="center" my={30}>
                     <Switch
                         label="Dark theme"
@@ -102,6 +96,13 @@ export default function Settings() {
                     >
                         Sign Out
                     </Button>
+                </Group>
+                < Group position="apart" mt="lg" className={classes.controls}>
+                    <Center>
+                        <Text color="blue" component={Link} href={"/mainmenu"} >
+                            Back to Main Menu
+                        </Text>
+                    </Center>
                 </Group>
             </Paper>
         </Container>

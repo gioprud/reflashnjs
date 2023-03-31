@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { Carousel } from '@mantine/carousel';
 import database from '@/services/database';
 import { useToggle } from '@mantine/hooks';
+import { getSession } from 'next-auth/react';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -131,9 +132,24 @@ function Card({ card, subject, front, back }: CardPage) {
   );
 }
 
-export default async function OwnedSets() {
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  console.log(session?.user);
+  console.log('got here')
+  // Fetch data from external API
+  const cards = await database.getLatestCards(session?.user.id);
+
+  // Pass data to the page via props
+  return { props: { cards: cards.map(e => ({
+    ...e,
+    _id: e._id.toString(),
+    due_date: e.due_date.toString(),
+    user_id: e.user_id.toString(),
+    })) } }
+}
+
+export default function OwnedSets({ cards }) {
   const { classes } = useStyles();
-  const cards = await database.getLatestCards();
   const slides = cards.map((card, index) => (
     <Carousel.Slide key={index}>
       <Card card={card} front={card.front} back={card.back} />

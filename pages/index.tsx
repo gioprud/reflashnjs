@@ -28,7 +28,6 @@ export default function LoginPage() {
 
   if (status === "authenticated") {
     router.push('/mainmenu')
-    return <p>logged in</p>
   }
   const handleCreateAccount = () => {
     console.log("Create account");
