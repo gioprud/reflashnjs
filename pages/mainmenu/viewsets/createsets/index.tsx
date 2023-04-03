@@ -1,4 +1,3 @@
-"use client"
 
 import {
   createStyles,
@@ -14,54 +13,66 @@ import {
   Box,
 } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
+import { ObjectId } from 'mongodb';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
+//get the session info
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  console.log(session?.user);
+  console.log('--------------------------------')
+  // @ts-ignore
+  console.log(session?.user.id);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
+
 const createNewSet = () => {
   console.log("Create new set");
+  const session = getSession();
 
-  const setNameInput = document.getElementById("setName") as HTMLInputElement;
-  const setChapterInput = document.getElementById("chapter") as HTMLInputElement;
+  const setSubjectInput = document.getElementById("subject") as HTMLInputElement;
   const questionInput = document.getElementById("front") as HTMLInputElement;
   const answerInput = document.getElementById("back") as HTMLInputElement;
 
-  const setName = setNameInput.value;
-  const chapter = setChapterInput.value;
+
+  const subject = setSubjectInput.value;
   const front = questionInput.value;
   const back = answerInput.value;
 
-  if (chapter == null || chapter == "" || front == null || front == "" || back == null || back == "") {
-    console.log("Set Name and Subject cannot be empty");
-    alert("Set Name and Subject cannot be empty");
+  if (subject == null || subject == "" || front == null || front == "" || back == null || back == "") {
+    console.log("Fields cannot be empty");
+    alert("Fields cannot be empty");
   }
 
-  console.log("Set Name: " + setName);
-  console.log("Set Name: " + chapter);
-  console.log("question: " + front);
-  console.log("answer: " + back);
-
   const data = {
-    setName: setName,
-    chapter: chapter,
+    subject: subject,
     front: front,
     back: back
   }
+  
 
-  const handleDownload = async () => {
-    console.log("Download set");
-    const data = [
-      ["setName","chapter", "front", "back"],
-      [setName,chapter, front, back],
-    ];
+  console.log( "Subject: " + subject);
+  console.log("question: " + front);
+  console.log("answer: " + back);
 
-    const csvContent = "data:text/csv;charset=utf-8," + data.map(e => e.join(",")).join("\n");
+  const handleUpload = async () => {
+    console.log("Upload card");
 
-    const formData = new FormData();
-    formData.append('file', new Blob([csvContent], { type: 'text/csv' }), 'data.csv');
-
-    console.log(data);
-
-    await fetch('/api/sets/create', {
+    fetch('/api/cards/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +82,7 @@ const createNewSet = () => {
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
-        alert("set created and sent to server");
+        alert("card created and sent to server");
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -79,15 +90,18 @@ const createNewSet = () => {
       });
   }
 
-  handleDownload();
+  handleUpload();
 }
+
 
 function addQuestion() {
   console.log("Add question");
 
 }
 
-export default function CreateSet() {
+
+
+export default function CreateSet(context: any) {
   const openRef = React.useRef(null);
 
 
@@ -103,7 +117,7 @@ export default function CreateSet() {
           Create Set
         </Title>
         <form>
-          <TextInput id='chapter' label="Set Chapter" placeholder="Set Chapter" required />
+          <TextInput id='subject' label="Subject" placeholder="Set Subject" required />
           <Group position="center" mt="lg">
             <TextInput id='front' label="Question" placeholder="Question, e.x 2+2=" required />
             <TextInput id='back' label="Answer" placeholder="Answer, e.x 4" required />

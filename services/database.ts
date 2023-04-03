@@ -25,6 +25,7 @@ export type Card = {
     due_date: Date;
     seen: boolean;
     user_id: ObjectId;
+    subject: string;
 }
 
 if (!process.env.NAMESPACE) throw new Error('No NAMESPACE env var set');
@@ -34,7 +35,7 @@ class Database {
     private connecting?: Promise<MongoClient>;
 
     public async getClient() {
-        // We use this method to make sure that if this function is called multiple times we only connect once
+        // use this method to make sure that if this function is called multiple times we only connect once
         if (this.connecting) return this.connecting;
         this.connecting = new Promise<MongoClient>(async (resolve) => {
             const mongoUri = process.env.MONGO_URI;
@@ -71,8 +72,10 @@ class Database {
         const client = await this.getClient();
         const db = client.db(process.env.NAMESPACE);
         const collection: Collection<User> = db.collection('users');
+        // Check if user exists
         const user = await collection.findOne({ username });
         if (!user) return false;
+        // Check if password is correct
         const result = await bcrypt.compare(password, user.password);
         if (!result) return false;
         return user;
@@ -97,18 +100,19 @@ class Database {
         return result.insertedId;
     }
     
-    async createCard(data: Card, user_id: ObjectId) {
+    async createCard(subject: string, front: string, back: string, user_id: ObjectId) {
         const client = await this.getClient();
         const db = client.db(process.env.NAMESPACE);
         const collection: Collection<Card> = db.collection('cards');
         const result = await collection.insertOne({
-            front: data.front,
-            back: data.back,
-            chapter: data.chapter,
-            id: data.id,
-            due_date: data.due_date,
-            seen: data.seen,
-            user_id: user_id
+            front,
+            back,
+            subject,
+            chapter: 0,
+            id: 1,
+            due_date: new Date(),
+            seen: false,
+            user_id: new ObjectId(user_id)
         });
         return result.insertedId;
     }

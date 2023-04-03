@@ -1,5 +1,6 @@
 import database from '@/services/database'
 import type { Collection } from 'mongodb'
+import { NextResponse } from 'next/server';
 
 type RegisterBody = {
   username: string;
@@ -10,7 +11,6 @@ type RegisterBody = {
 }
 // https://beta.nextjs.org/docs/routing/route-handlers
 
-import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   // Process a POST request
