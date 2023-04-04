@@ -13,8 +13,9 @@ import {
     Center,
     Box,
     ThemeIcon,
-    Switch, useMantineColorScheme, useMantineTheme
+    Switch, useMantineColorScheme, useMantineTheme, SegmentedControl
 } from '@mantine/core';
+import { Moon, Sun } from 'tabler-icons-react';
 import Link from 'next/link';
 import { useState } from "react";
 import { useTheme } from "@emotion/react";
@@ -47,6 +48,7 @@ const useStyles = createStyles((theme) => ({
 
 export default function Settings() {
     const { data: session, status } = useSession()
+    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
     if (status === "loading") {
         return <p>Loading...</p>
@@ -80,12 +82,31 @@ export default function Settings() {
                     </p>
                 </Group>
 
-                <Group position="center" my={30}>
-                    <Switch
-                        label="Dark theme"
-                        size="lg"
-                    />
-                </Group>
+                <Group position="center" my={30}/>
+                <SegmentedControl
+        value={colorScheme}
+        onChange={(value: 'light' | 'dark') => toggleColorScheme(value)}
+        data={[
+          {
+            value: 'light',
+            label: (
+              <Center>
+                <Sun size="1rem" stroke={'1.5'} />
+                <Box ml={10}>Light</Box>
+              </Center>
+            ),
+          },
+          {
+            value: 'dark',
+            label: (
+              <Center>
+                <Moon size="1rem" stroke={'1.5'} />
+                <Box ml={10}>Dark</Box>
+              </Center>
+            ),
+          },
+        ]}
+      />
                 <Group>
                     <Button
                         variant="outline"
