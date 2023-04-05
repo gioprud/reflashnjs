@@ -65,13 +65,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const revealAnswer = () => {
+const Wrong = () => {
   //on button click, toggle answer
 
   
 }
 
-const populateCards = () => {
+const Correct = () => {
   // populate cards with set data
 
 }

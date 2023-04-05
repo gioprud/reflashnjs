@@ -21,6 +21,7 @@ export type Card = {
     front: string;
     back: string;
     chapter: number;
+    interval: number;
     id: number;
     due_date: Date;
     seen: boolean;
@@ -109,6 +110,7 @@ class Database {
             back,
             subject,
             chapter: 0,
+            interval: 1,
             id: 1,
             due_date: new Date(),
             seen: false,
