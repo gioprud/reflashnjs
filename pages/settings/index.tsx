@@ -54,10 +54,6 @@ export default function Settings() {
         return <p>Loading...</p>
     }
 
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
-
     const { classes } = useStyles();
 
     return (
@@ -82,42 +78,31 @@ export default function Settings() {
                     </p>
                 </Group>
 
-                <Group position="center" my={30}/>
+                <Group position="center" my={30} />
                 <SegmentedControl
-        value={colorScheme}
-        onChange={(value: 'light' | 'dark') => toggleColorScheme(value)}
-        data={[
-          {
-            value: 'light',
-            label: (
-              <Center>
-                <Sun size="1rem" stroke={'1.5'} />
-                <Box ml={10}>Light</Box>
-              </Center>
-            ),
-          },
-          {
-            value: 'dark',
-            label: (
-              <Center>
-                <Moon size="1rem" stroke={'1.5'} />
-                <Box ml={10}>Dark</Box>
-              </Center>
-            ),
-          },
-        ]}
-      />
-                <Group>
-                    <Button
-                        variant="outline"
-                        color="red"
-                        fullWidth
-                        mt="xl"
-                        onClick={() => signOut({ callbackUrl: "/" })}
-                    >
-                        Sign Out
-                    </Button>
-                </Group>
+                    value={colorScheme}
+                    onChange={(value: 'light' | 'dark') => toggleColorScheme(value)}
+                    data={[
+                        {
+                            value: 'light',
+                            label: (
+                                <Center>
+                                    <Sun size="1rem" stroke={'1.5'} />
+                                    <Box ml={10}>Light</Box>
+                                </Center>
+                            ),
+                        },
+                        {
+                            value: 'dark',
+                            label: (
+                                <Center>
+                                    <Moon size="1rem" stroke={'1.5'} />
+                                    <Box ml={10}>Dark</Box>
+                                </Center>
+                            ),
+                        },
+                    ]}
+                />
                 < Group position="apart" mt="lg" className={classes.controls}>
                     <Center>
                         <Text color="blue" component={Link} href={"/mainmenu"} >

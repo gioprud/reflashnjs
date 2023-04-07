@@ -16,7 +16,8 @@ import Link from 'next/link';
 import { Carousel } from '@mantine/carousel';
 import database from '@/services/database';
 import { useToggle } from '@mantine/hooks';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
+import router from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -134,7 +135,6 @@ function Card({ card, front, back }: CardPage) {
 export async function getServerSideProps(context: any) {
   const session = await getSession(context)
   console.log(session?.user);
-  console.log('got here')
   // Fetch data from external API
   // @ts-ignore
   const cards = await database.getLatestCards(session?.user.id);
@@ -149,7 +149,18 @@ export async function getServerSideProps(context: any) {
 }
 
 export default function OwnedSets({ cards }: { cards: CardPage[] }) {
+  const { data: session, status } = useSession()
   const { classes } = useStyles();
+  
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    router.push('/')
+    alert ("You need to be logged in to access this page.")
+  }
+  
   const slides = cards.map((card, index) => (
     <Carousel.Slide key={index}>
       <Card card={card as any} front={card.front} back={card.back} />
@@ -182,7 +193,7 @@ export default function OwnedSets({ cards }: { cards: CardPage[] }) {
           <Button>
            reveal answer
           </Button>
-          <Link href="/mainmenu/viewsets">
+          <Link href="/mainmenu">
             <Button>
               Back
             </Button>

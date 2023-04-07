@@ -133,7 +133,7 @@ export default function CreateSet(context: any) {
         <Group position="center" mt="lg">
           <Button onClick={addQuestion}>Add More Questions</Button>
           <Button onClick={createNewSet}>Create Set</Button>
-          <Link href="/mainmenu/viewsets">
+          <Link href="/mainmenu">
             <Button>
               Back
             </Button>

@@ -13,7 +13,9 @@ import {
   Center,
   Box,
 } from '@mantine/core';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import router from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -37,7 +39,17 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function MainMenu() {
+  const { data: session, status } = useSession()
   const { classes } = useStyles();
+  
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    router.push('/')
+    alert ("You need to be logged in to access this page.")
+  }
 
   return (
     <Container size={600} my={30}>

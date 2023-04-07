@@ -22,7 +22,6 @@ export type Card = {
     back: string;
     chapter: number;
     interval: number;
-    id: number;
     due_date: Date;
     seen: boolean;
     user_id: ObjectId;
@@ -111,7 +110,6 @@ class Database {
             subject,
             chapter: 0,
             interval: 1,
-            id: 1,
             due_date: new Date(),
             seen: false,
             user_id: new ObjectId(user_id)

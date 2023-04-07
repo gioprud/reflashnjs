@@ -40,10 +40,6 @@ export default function LoginPage() {
 
   }
 
-  const handleSkip = () => {
-    console.log("Skip login");
-  }
-
   return (
     <Container size={420} my={40}>
       <Title
@@ -55,15 +51,10 @@ export default function LoginPage() {
       
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <Group position="center">
-            <Link href={"/mainmenu"} onClick={handleSkip}>
-              <Button fullWidth mt="xl">
-                skip login test
-              </Button>
-            </Link>
-
-        <Link href={"/account/accountcreate"} onClick={handleCreateAccount}>
-          <Button fullWidth mt="xl">CreateAccount</Button>
-        </Link>
+          <Text size="sm" color="dimmed">
+            Log in to your account
+          </Text>
+          <Button component={Link} href='/account/accountcreate' fullWidth mt="xl">CreateAccount</Button>
 
       
             <Button onClick={() => signIn()} fullWidth mt="xl">Log in</Button>

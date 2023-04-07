@@ -1,21 +1,10 @@
-"use client"
-
-import {
-  createStyles,
-  Paper,
-  Title,
-  Text,
-  TextInput,
-  Button,
-  Container,
-  Group,
-  Anchor,
-  Center,
-  Box,
-} from '@mantine/core';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import router from 'next/router';
+"use client";
+import { Container, Title, Table, Paper, createStyles } from "@mantine/core";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import router from "next/router";
+import React from "react";
+import { SetData } from "@/component/orgdata";
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -38,12 +27,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const helpButton = () => {
-  console.log("Help button clicked");
 
-}
 
-export default function MainMenu() {
+export default function Viewsets() {
   const { data: session, status } = useSession()
   const { classes } = useStyles();
   
@@ -55,30 +41,42 @@ export default function MainMenu() {
     router.push('/')
     alert ("You need to be logged in to access this page.")
   }
+  
+  const rows = SetData.map((element) => (
+    <tr key={element.SubjectName}>
+      <td>
+        <Link href="/mainmenu/viewsets/availablesets">{element.SubjectName}</Link>
+      </td>
+      <td>
+        {element.SubjectName}
+      </td>
 
+    </tr>
+  ));
 
   return (
-    <Container size={460} my={30}>
-      <Title className={classes.title} align="center">
-        Reflash!
+    <Container size={650} my={30}>
+      <Title
+        sx={(theme) => ({
+          fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+          fontWeight: 900,
+          marginBottom: 50,
+        })}
+        align="center"
+      >
+        Reflash! View All Set
       </Title>
-      <Text color="dimmed" size="sm" align="center">
-        Main Menu
-      </Text>
-
-      <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-        <Group position="apart" mt="lg" className={classes.controls}>
-          <Button component={Link} href={"/mainmenu/viewsets"}>
-            View Sets
-          </Button>
-          <Button component={Link} href={"/settings"}>
-            Settings
-          </Button >
-          <Button component={Link} href={"/mainmenu/help"} onClick={helpButton}>
-            Help
-          </Button>
-        </Group>
+      <Paper>
+        <Table>
+          <thead>
+            <tr>
+              <th>Set name</th>
+              <th>Subject name</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
       </Paper>
     </Container>
-  )
+  );
 }
