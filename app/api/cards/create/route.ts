@@ -22,11 +22,11 @@ export async function POST(request: Request) {
     const user = new ObjectId(session.user.id);
     try {
         const body = await request.json() as CardBody;
-        const { subject, front, back } = body;
-        if (!subject || !front || !back) {
+        const { subject, front, back, chapter } = body;
+        if (!subject || !front || !back || !chapter) {
             return NextResponse.json({ error: 'Missing subject, front, or back' });
         }
-        const cardRes = await database.createCard(subject, front, back, user);
+        const cardRes = await database.createCard(subject, front, back, chapter, user);
         return NextResponse.json({ data: cardRes });
     } catch (error) {
         console.error(error);

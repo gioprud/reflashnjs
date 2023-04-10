@@ -50,7 +50,6 @@ export default function Viewsets() {
       <td>
         {element.SubjectName}
       </td>
-
     </tr>
   ));
 
@@ -67,11 +66,11 @@ export default function Viewsets() {
         Reflash! View All Set
       </Title>
       <Paper>
-        <Table>
+        <Table striped>
           <thead>
             <tr>
               <th>Set name</th>
-              <th>Subject name</th>
+              <th>Total Cards</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>

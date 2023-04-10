@@ -1,6 +1,7 @@
 
 import {
     Collection,
+    Int32,
     MongoClient,
     ObjectId,
     UpdateFilter,
@@ -100,7 +101,7 @@ class Database {
         return result.insertedId;
     }
     
-    async createCard(subject: string, front: string, back: string, user_id: ObjectId) {
+    async createCard(subject: string, front: string, back: string, chapter: number, user_id: ObjectId) {
         const client = await this.getClient();
         const db = client.db(process.env.NAMESPACE);
         const collection: Collection<Card> = db.collection('cards');
@@ -108,7 +109,7 @@ class Database {
             front,
             back,
             subject,
-            chapter: 0,
+            chapter,
             interval: 1,
             due_date: new Date(),
             seen: false,
@@ -122,6 +123,30 @@ class Database {
         const db = client.db(process.env.NAMESPACE);
         const collection: Collection<Card> = db.collection('cards');
         const result = await collection.find({user_id: new ObjectId(userid)}).sort({ dueDate: 1 }).toArray();
+        return result;
+    }
+
+    async getCardsBySubject(userid: string, subject: string) {
+        const client = await this.getClient();
+        const db = client.db(process.env.NAMESPACE);
+        const collection: Collection<Card> = db.collection('cards');
+        const result = await collection.find({user_id: new ObjectId(userid), subject}).sort({ dueDate: 1 }).toArray();
+        return result;
+    }
+
+    async getCardsByChapter(userid: string, subject: string, chapter: number) {
+        const client = await this.getClient();
+        const db = client.db(process.env.NAMESPACE);
+        const collection: Collection<Card> = db.collection('cards');
+        const result = await collection.find({user_id: new ObjectId(userid), subject, chapter}).sort({ dueDate: 1 }).toArray();
+        return result;
+    }
+
+    async getCardById(cardid: string) {
+        const client = await this.getClient();
+        const db = client.db(process.env.NAMESPACE);
+        const collection: Collection<Card> = db.collection('cards');
+        const result = await collection.findOne({_id: new ObjectId(cardid)});
         return result;
     }
 }

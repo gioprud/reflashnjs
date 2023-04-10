@@ -21,11 +21,6 @@ import React from 'react';
 //get the session info
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
-  console.log(session?.user);
-  console.log('--------------------------------')
-  // @ts-ignore
-  console.log(session?.user.id);
-
   if (!session) {
     return {
       redirect: {
@@ -47,13 +42,14 @@ const createNewSet = () => {
   const setSubjectInput = document.getElementById("subject") as HTMLInputElement;
   const questionInput = document.getElementById("front") as HTMLInputElement;
   const answerInput = document.getElementById("back") as HTMLInputElement;
-
+  const chapterInput = document.getElementById("chapter") as HTMLInputElement;
 
   const subject = setSubjectInput.value;
   const front = questionInput.value;
   const back = answerInput.value;
+  const chapter = chapterInput.value;
 
-  if (subject == null || subject == "" || front == null || front == "" || back == null || back == "") {
+  if (subject == null || subject == "" || front == null || front == "" || back == null || back == "" || chapter == null || chapter == "") {
     console.log("Fields cannot be empty");
     alert("Fields cannot be empty");
   }
@@ -61,13 +57,15 @@ const createNewSet = () => {
   const data = {
     subject: subject,
     front: front,
-    back: back
+    back: back,
+    chapter: chapter
   }
   
 
   console.log( "Subject: " + subject);
   console.log("question: " + front);
   console.log("answer: " + back);
+  console.log("chapter: " + chapter);
 
   const handleUpload = async () => {
     console.log("Upload card");
@@ -118,6 +116,7 @@ export default function CreateSet(context: any) {
         </Title>
         <form>
           <TextInput id='subject' label="Subject" placeholder="Set Subject" required />
+          <TextInput id='chapter' label="Chapter" placeholder="Chapter" required />
           <Group position="center" mt="lg">
             <TextInput id='front' label="Question" placeholder="Question, e.x 2+2=" required />
             <TextInput id='back' label="Answer" placeholder="Answer, e.x 4" required />

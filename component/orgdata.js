@@ -59,19 +59,7 @@ export const SetData = [
                     },
                 ],
             },
-            {
-                ChapterName: "Biology",
-                SetQuestion: [
-                    {
-                        front: "What is the name of the largest animal in the world?",
-                        back: "Blue Whale",
-                    },
-                    {
-                        front: "What is the name of the largest insect in the world?",
-                        back: "Goliath Beetle",
-                    },
-                ],
-            },
+            ,
         ],
     },
     {
