@@ -82,18 +82,18 @@ const createNewAccount = () => {
   console.log("lastName: " + lastName);
   console.log("email: " + email);
 
-  
-  
+
+
   if (flag == true) {
 
-  const url = "/api/user/register";
-  const data = {
-    username: username,
-    password: password,
-    firstName: firstName,
-    lastName: lastName,
-    email: email
-  };
+    const url = "/api/user/register";
+    const data = {
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      email: email
+    };
 
     fetch(url, {
       method: 'POST',
@@ -112,10 +112,11 @@ const createNewAccount = () => {
         alert("Error creating account");
       });
 
-      const handleChange = (event: { target: { name?: any; value?: any; }; }) => {
-        const { value } = event.target;
-      }
-}}
+    const handleChange = (event: { target: { name?: any; value?: any; }; }) => {
+      const { value } = event.target;
+    }
+  }
+}
 
 
 export default function CreateAccount() {
@@ -136,13 +137,13 @@ export default function CreateAccount() {
           <TextInput id='firstname' label="First Name" placeholder="first name" required />
           <TextInput id='lastname' label="Last Name" placeholder="last name" required />
           <TextInput id='email' label="Email" placeholder="email" required type={"email"} />
-          <Anchor color="dimmed" size="sm" className={classes.control}>
-              <Center inline>
-                <Link href={"/"} >Back to login page</Link>
-              </Center>
-            </Anchor>
-          <Button className={classes.control} onClick={createNewAccount}>Create Account</Button>
         </form>
+        <Group position="center">
+          <Link href={"/"} >
+            <Button>Back</Button>
+          </Link>
+          <Button className={classes.control} onClick={createNewAccount}>Create Account</Button>
+        </Group>
       </Paper>
     </Container>
   );

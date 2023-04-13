@@ -65,17 +65,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Wrong = () => {
-  //on button click, toggle answer
-
-
-}
-
-const Correct = () => {
-  // populate cards with set data
-
-}
-
 interface CardPage {
   front: string;
   back: string;
@@ -102,9 +91,6 @@ const CardPages: React.FC<CardPage> = ({ front, back, subject }) => {
           {back}
         </Text>
       </Group>
-      <Group>
-
-      </Group>
     </Paper>
   );
 }
@@ -117,13 +103,14 @@ export async function getServerSideProps(context: any) {
   const cards = await database.getLatestCards(session?.user.id);
 
   // Pass data to the page via props
+  // also converts ObjectID to string
   return {
     props: {
       cards: cards.map(e => ({
         ...e,
         _id: e._id.toString(),
-        due_date: e.due_date.toString(),
         user_id: e.user_id.toString(),
+        due_date: e.due_date.toString()
       }))
     }
   }

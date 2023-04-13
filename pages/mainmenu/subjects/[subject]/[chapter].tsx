@@ -4,9 +4,8 @@ import Link from "next/link";
 import router from "next/router";
 import { ObjectId } from 'mongodb';
 import React from "react";
-import database from "@/services/database";
-
-import { fetchData } from "next-auth/client/_utils";
+import database, { Card } from "@/services/database";
+import { useRouter } from 'next/router'
 import { GetServerSideProps } from "next";
 
 const useStyles = createStyles((theme) => ({
@@ -30,47 +29,67 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type PageProps = {
-  subjects: Record<string, number>
+type StringifiedCard = Card & {
+    _id: string;
+    due_date: string;
+    user_id: string
 }
+
+type PageProps = {
+  cards: StringifiedCard[];
+}
+
+
 export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  const session = await getSession(context)
-  // Fetch data from external API
+  const session = await getSession(context);
+  const { subject, chapter } = context.query;
+  if (typeof subject !== 'string' || !subject) return {
+    notFound: true
+  }
+  if (typeof chapter !== 'string' || !chapter) return {
+    notFound: true
+  }
+  const chapterNumber = parseInt(chapter);
+  if (isNaN(chapterNumber)) {
+    return {
+        notFound: true
+    }
+  }
+  
+    
   // @ts-ignore
   const userId = new ObjectId(session.user.id)
   const collection = await database.getCollection('cards');
-  const userSubjects = await collection.distinct('subject', {
-      // @ts-ignore
-      user_id: userId
-  });
-  // Count every card per subject
-  const count = await Promise.all(userSubjects.map(async (subject) => {
-      const count = await collection.countDocuments({
-          user_id: userId,
-          subject
-      });
-      return {
-        count,
-        subject
-      };
-  }));
-  // Map the subjects and counts into an object
-  const subjects = count.reduce((acc, curr) => {
-    acc[curr.subject] = curr.count;
-    return acc;
-  }, {} as PageProps['subjects']);
+  const cards = await collection.find({
+      user_id: userId,
+      subject: subject,
+      chapter: chapterNumber
+  }).toArray();
+  if (!cards.length) {
+    return {
+        notFound: true
+    }
+  }
+
   // Return data to the page
   return {
     props: {
-      subjects: subjects
+      cards: cards.map(e => ({
+        ...e,
+        _id: e._id.toString(),
+        user_id: e.user_id.toString(),
+        due_date: e.due_date.toString()
+      } as StringifiedCard))
     }
   }
 }
 
-export default function Viewsets({ subjects: subjectsObject }: PageProps) {
-  const { data: session, status } = useSession()
+export default function Viewsets({ cards }: PageProps) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const { classes } = useStyles();
   
+  const { subject, chapter } = router.query;
   if (status === "loading") {
     return <p>Loading...</p>
   }
@@ -92,26 +111,21 @@ export default function Viewsets({ subjects: subjectsObject }: PageProps) {
         })}
         align="center"
       >
-        Reflash! View All Sets
+        Reflash! View {subject} - Chapter {chapter}
       </Title>
       <Paper>
         <Table striped>
           <thead>
             <tr>
-              <th>Set name</th>
+              <th>Chapter name</th>
               <th>Total Cards</th>
             </tr>
           </thead>
           <tbody>
-            {Object.keys(subjectsObject).map((subject) => (
+            {cards.map((card) => (
               <tr>
                 <td>
-                  <Link href={`/mainmenu/subjects/${subject}`}>
-                    {subject}
-                  </Link>
-                </td>
-                <td>
-                  {subjectsObject[subject]}
+                  <pre>{JSON.stringify(card, null, 2)}</pre>
                 </td>
               </tr>
             ))}

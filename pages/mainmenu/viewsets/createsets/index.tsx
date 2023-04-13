@@ -130,8 +130,7 @@ export default function CreateSet(context: any) {
       </Dropzone>
         </Group>
         <Group position="center" mt="lg">
-          <Button onClick={addQuestion}>Add More Questions</Button>
-          <Button onClick={createNewSet}>Create Set</Button>
+          <Button onClick={createNewSet}>Create Card</Button>
           <Link href="/mainmenu">
             <Button>
               Back
