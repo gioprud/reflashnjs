@@ -100,7 +100,7 @@ export default function Viewsets({ chapters }: PageProps) {
         })}
         align="center"
       >
-        Reflash! View {subject} chapters
+        Reflash!<br></br>{subject}
       </Title>
       <Paper>
         <Table striped>

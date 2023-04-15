@@ -18,10 +18,10 @@ export type User = {
     email: string;
 }
 
-export type Card = {
+export type CardInfo = {
     front: string;
     back: string;
-    chapter: number;
+    chapter: Int32;
     interval: number;
     due_date: Date;
     seen: boolean;
@@ -54,7 +54,7 @@ class Database {
 
     // Function overloading
     async getCollection(name: 'users'): Promise<Collection<User>>
-    async getCollection(name: 'cards'): Promise<Collection<Card>>
+    async getCollection(name: 'cards'): Promise<Collection<CardInfo>>
     async getCollection(name: string): Promise<Collection<Record<string, unknown>>>
     async getCollection(name: string): Promise<Collection<any>> {
         const client = await this.getClient();
@@ -106,7 +106,7 @@ class Database {
         return result.insertedId;
     }
     
-    async createCard(subject: string, front: string, back: string, chapter: number, user_id: ObjectId) {
+    async createCard(subject: string, front: string, back: string, chapter: Int32, user_id: ObjectId) {
         const collection = await this.getCollection('cards');
         const result = await collection.insertOne({
             front,
@@ -133,7 +133,7 @@ class Database {
         return result;
     }
 
-    async getCardsByChapter(userid: string, subject: string, chapter: number) {
+    async getCardsByChapter(userid: string, subject: string, chapter: Int32) {
         const collection = await this.getCollection('cards');
         const result = await collection.find({user_id: new ObjectId(userid), subject, chapter}).sort({ dueDate: 1 }).toArray();
         return result;
@@ -147,7 +147,7 @@ class Database {
     }
 
     //updates a card by id
-    async updateCard(cardid: string, data: Partial<Card>) {
+    async updateCard(cardid: string, data: Partial<CardInfo>) {
         const collection = await this.getCollection('cards');
         const result = await collection.updateOne({_id: new ObjectId(cardid)}, {$set: data});
         return result.modifiedCount;

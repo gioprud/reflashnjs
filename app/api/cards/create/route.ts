@@ -1,5 +1,5 @@
 import database from '@/services/database'
-import { Collection, ObjectId } from 'mongodb'
+import { Collection, Int32, ObjectId } from 'mongodb'
 import { NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
@@ -7,7 +7,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 type CardBody = {
     front: string;
     back: string;
-    chapter: number;
+    chapter: Int32;
     subject: string;
     due_date: Date;
     seen: boolean;
@@ -26,7 +26,9 @@ export async function POST(request: Request) {
         if (!subject || !front || !back || !chapter) {
             return NextResponse.json({ error: 'Missing subject, front, or back' });
         }
-        const cardRes = await database.createCard(subject, front, back, chapter, user);
+        const parsedChapter = parseInt(chapter.toString(), 10);
+        const parChapter= new Int32(parsedChapter);
+        const cardRes = await database.createCard(subject, front, back, parChapter, user);
         return NextResponse.json({ data: cardRes });
     } catch (error) {
         console.error(error);

@@ -11,9 +11,10 @@ import {
   Anchor,
   Center,
   Box,
+  NumberInput,
 } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
-import { ObjectId } from 'mongodb';
+import { Int32, ObjectId } from 'mongodb';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
@@ -116,7 +117,7 @@ export default function CreateSet(context: any) {
         </Title>
         <form>
           <TextInput id='subject' label="Subject" placeholder="Set Subject" required />
-          <TextInput id='chapter' label="Chapter" placeholder="Chapter" required />
+          <NumberInput type='number'hideControls id='chapter' label="Chapter" placeholder="Chapter" required />
           <Group position="center" mt="lg">
             <TextInput id='front' label="Question" placeholder="Question, e.x 2+2=" required />
             <TextInput id='back' label="Answer" placeholder="Answer, e.x 4" required />

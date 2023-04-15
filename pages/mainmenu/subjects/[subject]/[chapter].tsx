@@ -1,10 +1,10 @@
-import { Container, Title, Table, Paper, createStyles } from "@mantine/core";
+import { Container, Title, Table, Paper, createStyles, Card } from "@mantine/core";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import router from "next/router";
 import { ObjectId } from 'mongodb';
 import React from "react";
-import database, { Card } from "@/services/database";
+import database, { CardInfo } from "@/services/database";
 import { useRouter } from 'next/router'
 import { GetServerSideProps } from "next";
 
@@ -29,7 +29,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type StringifiedCard = Card & {
+type StringifiedCard = CardInfo & {
     _id: string;
     due_date: string;
     user_id: string
@@ -57,8 +57,9 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   }
   
     
-  // @ts-ignore
+  // @ts-ignore - session.user.id is a string
   const userId = new ObjectId(session.user.id)
+  // looks at collection 'cards' and finds all cards with the user_id, subject, and chapter
   const collection = await database.getCollection('cards');
   const cards = await collection.find({
       user_id: userId,
@@ -111,14 +112,14 @@ export default function Viewsets({ cards }: PageProps) {
         })}
         align="center"
       >
-        Reflash! View {subject} - Chapter {chapter}
+        Reflash!<br></br>{subject}<br></br>Chapter {chapter}
       </Title>
-      <Paper>
+      <Paper withBorder>
         <Table striped>
           <thead>
             <tr>
-              <th>Chapter name</th>
-              <th>Total Cards</th>
+              <th>Question</th>
+              <th>Answer</th>
             </tr>
           </thead>
           <tbody>
@@ -131,6 +132,13 @@ export default function Viewsets({ cards }: PageProps) {
             ))}
           </tbody>
         </Table>
+        <Card>
+          <Paper withBorder>
+          <Link href="/mainmenu">
+            Back to Main Menu
+          </Link>
+          </Paper>
+        </Card>
       </Paper>
     </Container>
   );
