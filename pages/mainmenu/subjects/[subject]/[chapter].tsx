@@ -64,6 +64,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   const cards = await collection.find({
       user_id: userId,
       subject: subject,
+      // @ts-ignore - chapterNumber is a number
       chapter: chapterNumber
   }).toArray();
   if (!cards.length) {

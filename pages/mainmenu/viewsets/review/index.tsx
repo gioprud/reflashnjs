@@ -16,12 +16,12 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 import { getSession, useSession } from 'next-auth/react';
-import database, { Card } from '@/services/database';
+import database, { CardInfo } from '@/services/database';
 import router from 'next/router';
 import { useToggle } from '@mantine/hooks';
 import { GetServerSideProps } from "next";
 
-type StringifiedCard = Card & {
+type StringifiedCard = CardInfo & {
     _id: string;
     due_date: string;
     user_id: string
