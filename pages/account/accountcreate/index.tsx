@@ -111,10 +111,6 @@ const createNewAccount = () => {
         console.error('Error:', error);
         alert("Error creating account");
       });
-
-    const handleChange = (event: { target: { name?: any; value?: any; }; }) => {
-      const { value } = event.target;
-    }
   }
 }
 

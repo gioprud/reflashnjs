@@ -57,7 +57,7 @@ const AuthHead: React.FC = () => {
                     <Link className={classes.link} href='/mainmenu'>Home</Link>
                     <Link className={classes.link} href={"/settings"}>Settings</Link>
                     <Link className={classes.link} href={"/mainmenu/viewsets/createsets"}>Create</Link>
-                    <Link className={classes.link} href={"/mainmenu/viewsets/availablesets"}>AvailSets</Link>
+                    <Link className={classes.link} href={"/mainmenu/help"}>Help</Link>
                     <Link className={classes.link} href={"/mainmenu/viewsets/review"}>Review</Link>
                     <Button
                         color="red"

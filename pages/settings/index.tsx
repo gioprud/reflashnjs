@@ -59,11 +59,8 @@ export default function Settings() {
     return (
         <Container size={460} my={30}>
             <Title className={classes.title} align="center">
-                test
-            </Title>
-            <Text color="dimmed" size="sm" align="center">
                 Settings
-            </Text>
+            </Title>
 
             <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
                 <Group position="apart" mt="lg" className={classes.controls}>

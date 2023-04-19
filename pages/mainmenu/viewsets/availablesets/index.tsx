@@ -66,9 +66,11 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface CardPage {
+  seen: boolean;
   front: string;
   back: string;
   subject: string;
+  _id: string;
 }
 
 //Populates a card in the carousel with the question and back
@@ -84,10 +86,10 @@ const CardPages: React.FC<CardPage> = ({ front, back, subject }) => {
       className={classes.card}
     >
       <Group position="center">
-        <Title className={classes.back} size="xs">
+        <Title className={classes.front} size="xs">
           {front}
         </Title>
-        <Text className={classes.front}>
+        <Text className={classes.back}>
           {back}
         </Text>
       </Group>
@@ -116,6 +118,34 @@ export async function getServerSideProps(context: any) {
   }
 }
 
+const SeenCard = (CardId: string, seen: boolean) => {
+
+  console.log("seen card" + CardId);
+  const url = "/api/cards/" + CardId;
+
+  if (!seen) {
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        seen: true,
+      })
+
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }
+
+
+}
+
 export default function OwnedSets({ cards }: { cards: CardPage[] }) {
   const { data: session, status } = useSession()
   const { classes } = useStyles();
@@ -134,7 +164,10 @@ export default function OwnedSets({ cards }: { cards: CardPage[] }) {
       <Card children={<CardPages
         front={card.front}
         back={card.back}
-        subject={card.subject} />} {...card} />
+        subject={card.subject}
+        _id={card._id}
+        seen={card.seen}
+      />} {...card} />
     </Carousel.Slide>
   ));
 
@@ -144,7 +177,7 @@ export default function OwnedSets({ cards }: { cards: CardPage[] }) {
         Reflash!
       </Title>
 
-      <Carousel className={classes.card} slideSize='50%'>
+      <Carousel className={classes.card} slideSize='50%' onSlideChange={(index) => SeenCard(cards[index]._id, cards[index].seen)}>
         {slides}
       </Carousel>
       <Group position="center" mt="xl">

@@ -127,7 +127,26 @@ export default function CreateSet(context: any) {
         <Dropzone onDrop={(files) => console.log('files accepted:', files)}
         onReject={(files) => console.log('files rejected', files)}
         maxSize={60 * 1024 ** 2}>
-        {/* children */}
+        <Group position="center" spacing="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
+        <Dropzone.Accept>
+          File Accepted
+        </Dropzone.Accept>
+        <Dropzone.Reject>
+          File Rejected
+        </Dropzone.Reject>
+        <Dropzone.Idle>
+          Idling
+        </Dropzone.Idle>
+
+        <div>
+          <Text size="xl" inline>
+            Drag file here or click to select files
+          </Text>
+          <Text size="sm" color="dimmed" inline mt={7}>
+            Attach one csv file
+          </Text>
+        </div>
+      </Group>
       </Dropzone>
         </Group>
         <Group position="center" mt="lg">
