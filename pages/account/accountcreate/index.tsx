@@ -38,8 +38,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const createNewAccount = () => {
-  console.log("Create new account");
+//Creates a new account
+export const createNewAccount = () => {
 
   let flag = true;
 
@@ -62,7 +62,7 @@ const createNewAccount = () => {
     return false;
   }
 
-  if (!email) {
+  if (email == null || email == "" || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
     console.log("Invalid email address");
     alert("Invalid email address");
     flag = false;
@@ -85,7 +85,7 @@ const createNewAccount = () => {
 
 
   if (flag == true) {
-
+    //sends data to the backend
     const url = "/api/user/register";
     const data = {
       username: username,

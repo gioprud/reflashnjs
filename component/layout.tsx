@@ -53,7 +53,8 @@ const AuthHead: React.FC = () => {
             height={100}
         >
             <Group position='apart'>
-                <h1 className='header'>Reflash!</h1>                <Group position="right">
+                <h1 className='header'>Reflash!</h1>                
+                    <Group position="right">
                     <Link className={classes.link} href='/mainmenu'>Home</Link>
                     <Link className={classes.link} href={"/settings"}>Settings</Link>
                     <Link className={classes.link} href={"/mainmenu/viewsets/createsets"}>Create</Link>

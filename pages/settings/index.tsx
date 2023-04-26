@@ -74,7 +74,11 @@ export default function Settings() {
                         app font color
                     </p>
                 </Group>
-
+                <Group position="apart" mt="lg" className={classes.controls}>
+                    <Button>
+                        reset seen status
+                    </Button>
+                </Group>
                 <Group position="center" my={30} />
                 <SegmentedControl
                     value={colorScheme}

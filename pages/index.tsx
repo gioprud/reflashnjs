@@ -13,9 +13,7 @@ import {
   Button,
 } from '@mantine/core';
 import Link from 'next/link';
-//import { useForm } from 'react-hook-form';
-import type { User } from '@/services/database';
-import { getSession, signIn, useSession } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {

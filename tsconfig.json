@@ -24,6 +24,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "component/layout.js", "component/layout.js", "component/layout.js", "component/layout.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "component/layout.js", "component/layout.js", "component/layout.js", "component/layout.js", "test/pages/mainmenu/viewsets/createsets/index.tests.ts", "test/pages/account/accountcreate/index.tests.ts"],
   "exclude": ["node_modules"]
 }

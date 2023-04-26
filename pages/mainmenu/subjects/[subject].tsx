@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   }
   
     
-  // @ts-ignore
+  // @ts-ignore - session.user.id does exist
   const userId = new ObjectId(session.user.id)
   const collection = await database.getCollection('cards');
   const userSubjects = await collection.distinct('chapter', {
@@ -48,6 +48,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
       subject: subject
 
   });
+
   // Count every card per subject
   const count = await Promise.all(userSubjects.map(async (chapter) => {
       const count = await collection.countDocuments({
@@ -60,11 +61,13 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
         chapter: chapter
       };
   }));
+
   // Map the subjects and counts into an object
   const subjects = count.reduce((acc, curr) => {
     acc[`${curr.chapter}`] = curr.count;
     return acc;
   }, {} as PageProps['chapters']);
+
   // Return data to the page
   return {
     props: {

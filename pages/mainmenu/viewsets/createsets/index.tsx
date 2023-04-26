@@ -36,7 +36,7 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-const createNewSet = () => {
+export const createNewSet = () => {
   console.log("Create new set");
   const session = getSession();
 
